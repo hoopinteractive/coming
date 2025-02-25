@@ -8,8 +8,6 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState(
     targetDateRef.current - new Date().getTime()
   );
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -28,31 +26,10 @@ export default function Home() {
 
   const { days, hours, minutes, seconds } = formatTime(timeLeft);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await fetch("/api/saveEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      setMessage(data.message);
-      setEmail("");
-    } else {
-      setMessage(data.error);
-    }
-  };
-
-  const emailInputRef = useRef<HTMLInputElement | null>(null);
-
   return (
     <>
       <Head>
-        <title>Coming Soon | Hoop</title>
+        <title>Coming Soon | Hoop Interactive</title>
         <meta name="description" content="Something great is on the way." />
       </Head>
 
@@ -61,14 +38,7 @@ export default function Home() {
           <div className={styles.logoContainer}>
             <Image src="/Logo.svg" alt="Hoop Logo" width={180} height={40} />
           </div>
-          <a
-            href="#message"
-            className={styles.contactLink}
-            onClick={(e) => {
-              e.preventDefault(); // Prevents default anchor behavior
-              emailInputRef.current?.focus(); // Focus the input field
-            }}
-          >
+          <a href="#message" className={styles.contactLink}>
             Say Hello
           </a>
         </header>
@@ -96,27 +66,33 @@ export default function Home() {
             <p className={styles.ctaText}>
               Be the first to hear when we go live
             </p>
-            <form className={styles.emailForm} onSubmit={handleSubmit}>
+            <form className={styles.emailForm}>
               <input
                 type="email"
                 className={styles.emailInput}
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                ref={emailInputRef}
               />
               <button type="submit" className={styles.notifyButton}>
                 Notify Me
               </button>
             </form>
-            {message && <p>{message}</p>}
           </div>
         </div>
 
+        <div className={styles.infoSection}></div>
+
         <footer className={styles.footer}>
+          <p className={styles.infoText}>
+            Stay connected with us for updates, behind-the-scenes content, and
+            exciting announcements.
+          </p>
+          <p className={styles.infoText}>
+            Follow us on social media and be part of our journey!
+          </p>
+
           <div className={styles.links}>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/company/hoopinteractive"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -128,7 +104,7 @@ export default function Home() {
               />
             </a>
             <a
-              href="https://linkedin.com/company/hoopinteractive"
+              href="https://www.facebook.com/hoopinteractive"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -159,6 +135,25 @@ export default function Home() {
               <Image
                 src="/instagram.png"
                 alt="Instagram"
+                width={24}
+                height={24}
+              />
+            </a>
+            <a
+              href="https://www.tiktok.com/@hoopinteractive"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image src="/tiktok.png" alt="TikTok" width={24} height={24} />
+            </a>
+            <a
+              href="https://www.pinterest.com/hoopinteractive"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/pinterest.png"
+                alt="Pinterest"
                 width={24}
                 height={24}
               />

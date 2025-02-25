@@ -137,7 +137,28 @@
   font-size: 0.9rem;
 }
 
+.infoText {
+  font-size: 1.2rem;
+  color: #333;
+  text-align: justify;
+  max-width: 499px;
+  margin: 10px auto;
+  width: 90%;
+}
+
+.infoText:first-child{
+  display: none;
+}
+
 @media (max-width: 600px) {
+
+  .infoText:first-child{
+    display: block;
+  }
+
+  .infoText{
+    font-size: 0.8rem;
+  }
 
   .header {
     padding: 20px;
